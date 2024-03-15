@@ -1,0 +1,96 @@
+version: '3.8'
+volumes:
+  db-data:
+
+services:
+  
+  php-one:
+    image: nginx:latest
+    container_name: nginxTest
+    restart: unless-stopped
+    ports:
+      - '8080:80'
+      - '443:443'
+    depends_on:
+      - sql-two
+    networks:
+      - internet
+      - localnet
+    volumes:
+      - db-data:/app2
+      - type: bind
+        source: ./baza
+        target: /app2
+        bind:
+          propagation: rshared
+
+  sql-two:
+    image: mysql:latest
+    container_name: mysqlTest
+    restart: unless-stopped
+    networks:
+      - localnet
+    environment:
+      MYSQL_ROOT_PASSWORD: superPass
+    volumes:
+      - type: bind
+        source: ./baza
+        target: /app2
+        bind:
+          propagation: rshared    
+
+  node-three:
+    build: .
+    container_name: nodeTest
+    restart: unless-stopped
+    networks:
+      - localnet
+    command: ["node", "/app/str_n.js"]
+    volumes:
+      - type: bind
+        source: ./baza
+        target: /app2
+        bind:
+          propagation: rshared
+
+  redis-four:
+    image: redis:latest
+    container_name: redisTest
+    restart: unless-stopped
+    ports:
+      - '22122:22122'
+    networks:
+      - internet
+    volumes:
+      - type: bind
+        source: ./baza
+        target: /app2
+        bind:
+          propagation: rshared
+    
+
+  postgres-five:
+    image: postgres:latest
+    container_name: postgresTest
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    networks:
+      - internet
+    environment:
+      POSTGRES_PASSWORD: syperPassword
+    volumes:
+      - type: bind
+        source: ./baza
+        target: /app2
+        bind:
+          propagation: rshared
+  
+networks:
+  internet:
+    name: internet1
+    driver: bridge
+  localnet:
+    name: localnet
+    driver: bridge
+  

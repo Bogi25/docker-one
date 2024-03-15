@@ -1,0 +1,7 @@
+Nginx
+MySQL
+node.js
+redis
+postgresql
+one
+two
