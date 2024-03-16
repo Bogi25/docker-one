@@ -11,4 +11,4 @@ git clone https://github.com/Bogi25/docker-one.git
 і команда ./docker-one/start.sh запустить розгортання контейнерів.
 Вигляд кінцевої команди для скачування і запуску проекту:
 
-git clone https://github.com/Bogi25/docker-one.git && ./dok/start.sh
+git clone https://github.com/Bogi25/docker-one.git && ./docker-one/start.sh
