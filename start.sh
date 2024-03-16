@@ -2,7 +2,6 @@
 if ! docker ps &> /dev/null; then
         echo "Docker не запущений, буде запущенно"
         sudo systemctl start docker
-        sleep 4
 fi
 if [[ "$PWD" != *"docker-one"* ]]; then
     # Перехід в папку docker-one
