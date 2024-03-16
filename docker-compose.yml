@@ -17,7 +17,7 @@ services:
       - internet
       - localnet
     volumes:
-      - db-data:/app2
+      - db-data:/app_db-data
       - type: bind
         source: ./baza
         target: /app2
